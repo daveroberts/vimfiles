@@ -57,7 +57,7 @@ nnoremap <C-Q> :bd<CR>
 " Sets Leader key to , instead of \
 let mapleader = ","
 
-" Let's you escape input mode with jj instead of Escape 
+" Let's you escape input mode with jj instead of Escape
 :imap jj <Esc>
 
 " Leader n will toggle NERD tree
@@ -77,8 +77,9 @@ map ff :CtrlP<CR>
 " When enter is hit, try to indent to the right place
 :set smartindent
 
-" Highlight whitespace
+" Highlight trailing whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/     
 
-    
 " Remaps : to ;
 nnoremap ; :
