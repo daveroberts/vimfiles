@@ -3,44 +3,24 @@ call pathogen#infect()
 syntax on
 filetype plugin indent on
 
-set t_Co=256
+set t_Co=256 " Allow 256 colors in terminal
 " colorscheme railscasts
 colorscheme robinhood
 
-" Disable the toolbar
-set go-=T
-
-" Turn on line numbers
-set number
-
-" Copying from buffer doesn't copy the line numbers
-set mouse=a
-
-" Selecting text will copy it
-" noremap <LeftRelease> "+y<LeftRelease>
-
+set go-=T " Disable the toolbar in gvim
+set number " Turn on line numbers
+set mouse=a " Copying from buffer doesn't copy the line numbers
 " Control + C will copy text
 vmap <C-C> "+y
-
 " Control + X will cut text
 vmap <C-X> "+d
-
-" Allows vi to have multiple unsaved buffers
-"set hidden
+"set hidden " Allows vi to have multiple unsaved buffers
 
 " Sets movement keys to ijkl and insert to h
 noremap k j
 noremap j h
 noremap i k
 noremap h i
-
-" Switch between splits with Ctrl+I and Ctrl+K
-map <C-I> <C-W>j<C-W>_
-map <C-K> <C-W>k<C-W>_
-
-" Switch between buffers with Shift+J and Shift+L
-nnoremap <S-J> :bprevious<CR>
-nnoremap <S-L> :bnext<CR>
 
 " Page up and down with Shift+I and Shift+K
 nnoremap <S-I> <PageUp>
@@ -83,3 +63,35 @@ match ExtraWhitespace /\s\+$/
 
 " Remaps : to ;
 nnoremap ; :
+
+map ss :call ToggleSplit()<CR>
+
+function! ToggleSplit()
+  if len(tabpagebuflist()) > 1
+    :close
+  else
+    :vsplit
+  endif
+endfunction
+
+map <C-L> :call MoveRight()<CR>
+map <C-J> :call MoveLeft()<CR>
+" Switch between buffers with Shift+J and Shift+L
+nnoremap <S-J> :bprevious<CR>
+nnoremap <S-L> :bnext<CR>
+
+function! MoveRight()
+  if len(tabpagebuflist()) > 1
+    :exe "normal \<C-W>\<C-w>"
+  else
+    :bnext
+  endif
+endfunction
+
+function! MoveLeft()
+  if len(tabpagebuflist()) > 1
+    :exe "normal \<C-W>\<C-w>"
+  else
+    :bprev
+  endif
+endfunction
