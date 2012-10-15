@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/home/dave/code/indicators'
 let g:netrw_dirhist_2='/home/dave/.vim/bundle/command-t/ruby/command-t/scanner'
 let g:netrw_dirhist_3='/home/dave/old'
+let g:netrw_dirhist_4='/home/dave/code/spine-rails-tree'
