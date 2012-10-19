@@ -5,7 +5,8 @@ filetype plugin indent on
 
 set t_Co=256 " Allow 256 colors in terminal
 " colorscheme railscasts
-colorscheme robinhood
+set gfn=Droid\ Sans\ mono\ 12
+colorscheme navajo-night
 
 set go-=T " Disable the toolbar in gvim
 set number " Turn on line numbers
