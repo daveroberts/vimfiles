@@ -49,7 +49,8 @@ map <F2> :NERDTreeToggle<CR>
 map ff :CtrlP<CR>
 
 " Sets CtrlP search to ancestor with .git or pwd or dir of current file
-let g:ctrlp_working_path_mode = 'ra'
+"let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'a'
 
 " When tab is pressed, expand to spaces
 :set expandtab
