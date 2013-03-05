@@ -100,3 +100,14 @@ function! MoveLeft()
     :bprev
   endif
 endfunction
+
+"Save File on every keystroke
+"
+"function! WriteFile() 
+"  if &buftype == ""
+"    write
+"  endif
+"  return '%f %h%w%m%r%=%-14(%l,%c%V%) %(%P%)'
+"endfunction
+"setlocal statusline=%!WriteFile()
+"set laststatus=2
