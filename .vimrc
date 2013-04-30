@@ -1,12 +1,37 @@
-" Needed for pathogen (loads other plugins)
-call pathogen#infect()
+set nocompatible  " required for Vundle
+filetype off      " required for Vundle
+
+set rtp+=~/.vim/bundle/vundle
+call vundle#rc()
+
+" let Vundle manage Bundle
+" required!
+Bundle 'gmarik/vundle'
+
+" My Bundles here:
+" github repos
+Bundle 'tpope/vim-fugitive'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'gregsexton/MatchTag'
+Bundle 'tpope/vim-rails'
+Bundle 'derekwyatt/vim-scala'
+Bundle 'kien/ctrlp.vim'
+Bundle 'daviddavis/vim-colorpack'
+Bundle 'sjbach/lusty'
+
+filetype plugin indent on     " required!
+
 syntax on
-filetype plugin indent on
+
+" Needed for pathogen (loads other plugins)
+" call pathogen#infect()
+" syntax on
+" filetype plugin indent on
 
 set t_Co=256 " Allow 256 colors in terminal
 " colorscheme railscasts
 set gfn=Droid\ Sans\ mono\ 12
-colorscheme navajo-night
+colorscheme night
 
 set go-=T " Disable the toolbar in gvim
 set number " Turn on line numbers
@@ -44,6 +69,8 @@ let mapleader = ","
 " Leader n will toggle NERD tree
 " map <leader>n :NERDTreeToggle<CR>
 map <F2> :NERDTreeToggle<CR>
+
+map <S-H> :LustyJuggler<CR>
 
 " Sets CtrlP to ff
 map ff :CtrlP<CR>
