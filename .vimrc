@@ -17,7 +17,7 @@ Bundle 'tpope/vim-rails'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'kien/ctrlp.vim'
 Bundle 'daviddavis/vim-colorpack'
-Bundle 'sjbach/lusty'
+Bundle 'bling/vim-airline'
 
 filetype plugin indent on     " required!
 
@@ -31,7 +31,8 @@ syntax on
 set t_Co=256 " Allow 256 colors in terminal
 " colorscheme railscasts
 set gfn=Droid\ Sans\ mono\ 12
-colorscheme night
+" colorscheme night
+colorscheme sienna
 
 set go-=T " Disable the toolbar in gvim
 set number " Turn on line numbers
