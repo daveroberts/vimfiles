@@ -1,7 +1,26 @@
-To install a new plugin
+My VIM files
+============
 
-cd ~/.vim
-mkdir ~/.vim/bundle
-git submodule add http://github.com/tpope/vim-fugitive.git bundle/fugitive
-git add .
-git commit -m "Install Fugitive.vim bundle as a submodule."
+Installation
+------------
+
+    # Get the files into your home drive
+    git clone https://github.com/daveroberts/vimfiles.git ~/.vim/
+
+    # make a symbolic link from/to .vimrc
+    ln -sf ~/.vim/.vimrc ~/.vimrc
+
+    # Packages controlled by Vundle; Install it
+    git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle/
+
+    # I use droid fonts; To install on Ubuntu
+    sudo apt-get install fonts-droid
+
+    # Install packages
+    start gvim
+    run command :BundleInstall by typing ;BundleInstall<Enter>
+
+Adding libraries
+----------------
+
+    # To install a new plugin, add it to the .vimrc file and rebundle
