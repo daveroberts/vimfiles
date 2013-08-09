@@ -18,6 +18,7 @@ Bundle 'derekwyatt/vim-scala'
 Bundle 'kien/ctrlp.vim'
 Bundle 'daviddavis/vim-colorpack'
 Bundle 'bling/vim-airline'
+Bundle 'ervandew/supertab'
 
 filetype plugin indent on     " required!
 
@@ -30,9 +31,13 @@ syntax on
 
 set t_Co=256 " Allow 256 colors in terminal
 " colorscheme railscasts
-set gfn=Droid\ Sans\ mono\ 12
+set gfn=Droid\ Sans\ mono\ 10
 " colorscheme night
 colorscheme sienna
+
+" Set cut copy and paste to windows type commands
+source $VIMRUNTIME/mswin.vim
+behave mswin
 
 set go-=T " Disable the toolbar in gvim
 set number " Turn on line numbers
@@ -93,6 +98,15 @@ let g:ctrlp_working_path_mode = 'a'
 " Highlight trailing whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/     
+
+" Remove tailing whitespace on save
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " Remaps : to ;
 nnoremap ; :
