@@ -34,7 +34,7 @@ syntax on
 
 set t_Co=256 " Allow 256 colors in terminal
 " colorscheme railscasts
-set gfn=Droid\ Sans\ mono\ 10
+set gfn=Droid\ Sans\ mono\ 9
 " colorscheme night
 colorscheme sienna
 
