@@ -12,13 +12,16 @@ Bundle 'gmarik/vundle'
 " github repos
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
+" Highlights matching HTML tag
 Bundle 'gregsexton/MatchTag'
 Bundle 'tpope/vim-rails'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'kien/ctrlp.vim'
-Bundle 'daviddavis/vim-colorpack'
+" Bundle 'daviddavis/vim-colorpack'
+Bundle 'flazz/vim-colorschemes'
 Bundle 'bling/vim-airline'
 Bundle 'ervandew/supertab'
+Bundle 'corntrace/bufexplorer'
 
 filetype plugin indent on     " required!
 
@@ -62,9 +65,6 @@ nnoremap <C-K> <PageDown>
 
 " Tell VIM during motion commands to try to preserve column where cursor is positioned
 set nostartofline
-
-" Close buffer with Ctrl+Q
-nnoremap <C-Q> :bd<CR>
 
 " Sets Leader key to , instead of \
 let mapleader = ","
@@ -111,25 +111,22 @@ autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <
 " Remaps : to ;
 nnoremap ; :
 
-map ss :call ToggleSplit()<CR>
+" Split window vertically with ss
+map ss :vsplit<CR>
+" Split horizontally with capital SS
+map <S-s><S-s> :split<CR>
 
-function! ToggleSplit()
-  if len(tabpagebuflist()) > 1
-    :close
-  else
-    :vsplit
-  endif
-endfunction
+" Switch buffer with sd
+map sd ,be
 
-map <C-L> :call MoveRight()<CR>
-map <C-J> :call MoveLeft()<CR>
-" Switch between buffers with Shift+J and Shift+L
-nnoremap <S-J> :bprevious<CR>
-nnoremap <S-L> :bnext<CR>
+map <S-L> :call MoveRight()<CR>
+map <S-J> :call MoveLeft()<CR>
+map <S-I> :call MoveUp()<CR>
+map <S-K> :call MoveDown()<CR>
 
 function! MoveRight()
   if len(tabpagebuflist()) > 1
-    :exe "normal \<C-W>\<C-w>"
+    :exe "normal \<C-W>\<Right>"
   else
     :bnext
   endif
@@ -137,15 +134,44 @@ endfunction
 
 function! MoveLeft()
   if len(tabpagebuflist()) > 1
-    :exe "normal \<C-W>\<C-w>"
+    :exe "normal \<C-W>\<Left>"
   else
     :bprev
   endif
 endfunction
 
+function! MoveUp()
+  if len(tabpagebuflist()) > 1
+    :exe "normal \<C-W>\<Up>"
+  else
+    :bnext
+  endif
+endfunction
+
+function! MoveDown()
+  if len(tabpagebuflist()) > 1
+    :exe "normal \<C-W>\<Down>"
+  else
+    :bprev
+  endif
+endfunction
+
+" Close buffer with Ctrl+Q
+" Or with qq
+" nnoremap <C-Q> :call CloseBuf()<CR>
+map qq :call CloseBuf()<CR>
+
+function! CloseBuf()
+  if len(tabpagebuflist()) > 1
+    :exe "normal \<C-W>\c"
+  else
+    :bd
+  endif
+endfunction
+
 "Save File on every keystroke
 "
-"function! WriteFile() 
+"function! WriteFile()
 "  if &buftype == ""
 "    write
 "  endif
