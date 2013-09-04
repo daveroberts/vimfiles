@@ -159,15 +159,16 @@ endfunction
 " Close buffer with Ctrl+Q
 " Or with qq
 " nnoremap <C-Q> :call CloseBuf()<CR>
-map qq :call CloseBuf()<CR>
+"map qq :call CloseBuf()<CR>
+map qq :bd<CR>
 
-function! CloseBuf()
-  if len(tabpagebuflist()) > 1
-    :exe "normal \<C-W>\c"
-  else
-    :bd
-  endif
-endfunction
+"function! CloseBuf()
+"  if len(tabpagebuflist()) > 1
+"    :exe "normal \<C-W>\c"
+"  else
+"    :bd
+"  endif
+"endfunction
 
 "Save File on every keystroke
 "
