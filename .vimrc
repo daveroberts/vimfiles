@@ -1,3 +1,4 @@
+set shell=/bin/sh " required for fish shell
 set nocompatible  " required for Vundle
 filetype off      " required for Vundle
 
