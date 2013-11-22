@@ -37,7 +37,8 @@ set t_Co=256 " Allow 256 colors in terminal
 " colorscheme railscasts
 set gfn=Droid\ Sans\ mono\ 9
 " colorscheme night
-colorscheme sienna
+" colorscheme sienna
+colorscheme tango2
 
 " Set cut copy and paste to windows type commands
 source $VIMRUNTIME/mswin.vim
@@ -159,7 +160,8 @@ endfunction
 
 " Close buffer with Ctrl+Q
 " Or with qq
-nnoremap <C-Q> :call CloseBuf()<CR>
+"nnoremap <C-Q> :call CloseBuf()<CR>
+nnoremap <C-Q> :bd<CR>
 "map qq :call CloseBuf()<CR>
 "map qq :bd<CR>
 
