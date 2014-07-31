@@ -23,6 +23,8 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'bling/vim-airline'
 Bundle 'ervandew/supertab'
 Bundle 'corntrace/bufexplorer'
+Bundle 'mustache/vim-mustache-handlebars'
+
 
 filetype plugin indent on     " required!
 
@@ -38,7 +40,8 @@ set t_Co=256 " Allow 256 colors in terminal
 set gfn=Droid\ Sans\ mono\ 9
 " colorscheme night
 " colorscheme sienna
-colorscheme tango2
+" colorscheme tango2
+colorscheme tolerable
 
 " Set cut copy and paste to windows type commands
 source $VIMRUNTIME/mswin.vim
@@ -64,6 +67,10 @@ nnoremap <S-I> <PageUp>
 nnoremap <S-K> <PageDown>
 nnoremap <C-I> <PageUp>
 nnoremap <C-K> <PageDown>
+
+" Pressing , or . will let you indent/unident selected lines
+vnoremap , <gv
+vnoremap . >gv
 
 " Tell VIM during motion commands to try to preserve column where cursor is positioned
 set nostartofline
