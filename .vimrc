@@ -11,37 +11,84 @@ Bundle 'gmarik/vundle'
 
 " My Bundles here:
 " github repos
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-" Highlights matching HTML tag
-Bundle 'gregsexton/MatchTag'
-Bundle 'tpope/vim-rails'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'kien/ctrlp.vim'
-" Bundle 'daviddavis/vim-colorpack'
-Bundle 'flazz/vim-colorschemes'
-Bundle 'bling/vim-airline'
-Bundle 'ervandew/supertab'
-Bundle 'corntrace/bufexplorer'
-Bundle 'mustache/vim-mustache-handlebars'
 
+" highlight opposite opening / closing tag
+Bundle 'gregsexton/MatchTag'
+
+" search files by filenames and open quickly
+Bundle 'ctrlpvim/ctrlp.vim'
+
+" more colors, maybe one I could use
+Bundle 'flazz/vim-colorschemes'
+
+" ability to open gnupg encrypted files
+Bundle 'jamessan/vim-gnupg'
+
+" go syntax highlighting
+Bundle 'fatih/vim-go'
+
+" less syntax highlighting
+Plugin 'groenewege/vim-less'
+
+" ES6 syntax highlighting
+Plugin 'isRuslan/vim-es6'
+
+" toml highlighting
+Plugin 'cespare/vim-toml'
+
+" needed for vim-markdown highlighting
+Plugin 'godlygeek/tabular'
+
+" markdown syntax highlighting
+Plugin 'plasticboy/vim-markdown'
+
+" gradle syntax highlighting
+Plugin 'tfnico/vim-gradle'
+
+" kotlin syntax highlighting
+Plugin 'udalov/kotlin-vim'
+
+" nim syntax highlighting
+Plugin 'zah/nim.vim'
+
+" JSON syntax highlighting
+Plugin 'elzr/vim-json'
+
+" vue.js syntax highlighting
+Plugin 'posva/vim-vue'
+
+" elixir syntax highlighting
+Plugin 'elixir-editors/vim-elixir'
+
+" asciidoc syntax highlighting
+Plugin 'asciidoc/vim-asciidoc'
+
+" rust syntax highlighting
+Plugin 'rust-lang/rust.vim'
+
+" scala syntax highlighting
+Plugin 'derekwyatt/vim-scala'
+
+let g:vim_markdown_folding_disabled = 1 " Don't collapse markdown
+let g:vim_json_syntax_conceal = 0 " Don't conceal double quotes in JSON for vim-json
+
+autocmd FileType vue syntax sync fromstart " Vim syntax highlighting stops working randomly.  This is an attempt to fix that
 
 filetype plugin indent on     " required!
 
 syntax on
 
-" Needed for pathogen (loads other plugins)
-" call pathogen#infect()
-" syntax on
-" filetype plugin indent on
+" Set swap files to different directory
+set directory=$HOME/.vim/swapfiles
 
 set t_Co=256 " Allow 256 colors in terminal
+set gfn=Terminus\ 12
+" set gfn=Inconsolata\ 14
+" set gfn=Monospace\ 12
 " colorscheme railscasts
-set gfn=Droid\ Sans\ mono\ 9
-" colorscheme night
-" colorscheme sienna
-" colorscheme tango2
-colorscheme tolerable
+colorscheme tango2
+" colorscheme sienna " light background
+" colorscheme tolerable " light background
 
 " Set cut copy and paste to windows type commands
 source $VIMRUNTIME/mswin.vim
@@ -49,6 +96,7 @@ behave mswin
 
 set go-=T " Disable the toolbar in gvim
 set number " Turn on line numbers
+" set relativenumber " relative numbers
 set mouse=a " Copying from buffer doesn't copy the line numbers
 " Control + C will copy text
 vmap <C-C> "+y
@@ -90,9 +138,14 @@ map <S-H> :LustyJuggler<CR>
 " Sets CtrlP to ff
 map ff :CtrlP<CR>
 
+nnoremap <F3> :noh<CR>
+
 " Sets CtrlP search to ancestor with .git or pwd or dir of current file
 "let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_working_path_mode = 'a'
+
+" Ignore files in .gitignore
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 " When tab is pressed, expand to spaces
 :set expandtab
@@ -105,8 +158,8 @@ let g:ctrlp_working_path_mode = 'a'
 :set smartindent
 
 " Highlight trailing whitespace
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/     
+"highlight ExtraWhitespace ctermbg=red guibg=red
+"match ExtraWhitespace /\s\+$/     
 
 " Remove tailing whitespace on save
 fun! <SID>StripTrailingWhitespaces()
@@ -115,7 +168,9 @@ fun! <SID>StripTrailingWhitespaces()
     %s/\s\+$//e
     call cursor(l, c)
 endfun
-autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+" Automatically StripTrailingWhitespace on save
+"autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " Remaps : to ;
 nnoremap ; :
@@ -190,3 +245,68 @@ nnoremap <C-Q> :bd<CR>
 "endfunction
 "setlocal statusline=%!WriteFile()
 "set laststatus=2
+
+" Cycle color schemes with f4 and f5
+let s:schemes = "\n".globpath(&rtp, "colors/*.vim")."\n"
+let s:currentfile = ""
+let s:currentname = ""
+
+function! s:CycleColor(direction)
+	if exists("g:colors_name") && g:colors_name != s:currentname
+		" The user must have selected a colorscheme manually; try
+		" to find it and choose the next one after it
+		let nextfile = substitute(s:schemes, '.*\n\([^\x0A]*[/\\]'.g:colors_name.'\.vim\)\n.*', '\1', '')
+		if nextfile == s:schemes
+			let s:currentfile = ""
+		else
+			let s:currentfile = nextfile
+		endif
+	endif
+
+	if a:direction >= 0
+		" Find the current file name, and select the next one.
+		" No substitution will take place if the current file is not
+		"   found or is the last in the list.
+		let nextfile = substitute(s:schemes, '.*\n'.s:currentfile.'\n\([^\x0A]\+\)\n.*', '\1', '')
+		" If the above worked, there will be no control chars in
+		"   nextfile, so this will not substitute; otherwise, this will
+		"   choose the first file in the list.
+		let nextfile = substitute(nextfile, '\n\+\([^\x0A]\+\)\n.*', '\1', '')
+	else
+		let nextfile = substitute(s:schemes, '.*\n\([^\x0A]\+\)\n'.s:currentfile.'\n.*', '\1', '')
+		let nextfile = substitute(nextfile, '.*\n\([^\x0A]\+\)\n\+', '\1', '')
+	endif
+
+	if nextfile != s:schemes
+		let clrschm = substitute(nextfile, '^.*[/\\]\([^/\\]\+\)\.vim$', '\1', '')
+		" In case the color scheme does not set this variable, empty it so we can tell.
+		unlet! g:colors_name
+		exec 'colorscheme '.clrschm
+		redraw
+		if exists("g:colors_name")
+			let s:currentname = g:colors_name
+			if clrschm != g:colors_name
+				" Let user know colorscheme did not set g:colors_name properly
+				echomsg 'colorscheme' clrschm 'set g:colors_name to' g:colors_name
+			endif
+		else
+			let s:currentname = ""
+			echomsg 'colorscheme' clrschm 'did not set g:colors_name'
+		endif
+		echo s:currentname.' ('.nextfile.')'
+	endif
+
+	let s:currentfile = nextfile
+
+endfunction
+
+function! s:CycleColorRefresh()
+	let s:schemes = "\n".globpath(&rtp, "colors/*.vim")."\n"
+endfunction
+
+command! CycleColorNext :call s:CycleColor(1)
+command! CycleColorPrev :call s:CycleColor(-1)
+command! CycleColorRefresh :call s:CycleColorRefresh()
+
+nnoremap <f4> :CycleColorNext<cr>
+nnoremap <f5> :CycleColorPrev<cr>
