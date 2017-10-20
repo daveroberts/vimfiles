@@ -69,8 +69,16 @@ Plugin 'rust-lang/rust.vim'
 " scala syntax highlighting
 Plugin 'derekwyatt/vim-scala'
 
-" Better status bar
-Plugin 'vim-airline/vim-airline'
+" CSS Coloring
+Plugin 'ap/vim-css-color'
+
+" Git changes in gutter
+Plugin 'airblade/vim-gitgutter'
+" GitGutter styling to use · instead of +/-
+let g:gitgutter_sign_added = '∙'
+let g:gitgutter_sign_modified = '∙'
+let g:gitgutter_sign_removed = '∙'
+let g:gitgutter_sign_modified_removed = '∙'
 
 let g:vim_markdown_folding_disabled = 1 " Don't collapse markdown
 let g:vim_json_syntax_conceal = 0 " Don't conceal double quotes in JSON for vim-json
@@ -152,7 +160,9 @@ set incsearch
 set ignorecase
 " except for upper case
 set smartcase
-" Turn off highlighting
+" turn on highlighting
+set hlsearch
+" Turn off highlighting with F3
 nnoremap <F3> :noh<CR>
 
 " Sets CtrlP search to ancestor with .git or pwd or dir of current file
@@ -237,8 +247,8 @@ endfunction
 
 " Close buffer with Ctrl+Q
 " Or with qq
-"nnoremap <C-Q> :call CloseBuf()<CR>
-nnoremap <C-Q> :bd<CR>
+"nnoremap <C-Q> :call CloseBuf()<C>
+nmap <C-W> :bd<CR>
 "map qq :call CloseBuf()<CR>
 "map qq :bd<CR>
 
