@@ -69,8 +69,14 @@ Plugin 'rust-lang/rust.vim'
 " scala syntax highlighting
 Plugin 'derekwyatt/vim-scala'
 
+" Better status bar
+Plugin 'vim-airline/vim-airline'
+
 let g:vim_markdown_folding_disabled = 1 " Don't collapse markdown
 let g:vim_json_syntax_conceal = 0 " Don't conceal double quotes in JSON for vim-json
+
+" Automatically display all buffers when there's only one open tab
+let g:airline#extensions#tabline#enabled = 1
 
 autocmd FileType vue syntax sync fromstart " Vim syntax highlighting stops working randomly.  This is an attempt to fix that
 
@@ -105,16 +111,20 @@ vmap <C-X> "+d
 "set hidden " Allows vi to have multiple unsaved buffers
 
 " Sets movement keys to ijkl and insert to h
-noremap k j
+" The gj and gk make it move one line on screen, regardless of whether it's
+" the same line mapped or not
+noremap k gj
 noremap j h
-noremap i k
+noremap i gk
+map <S-L> w
+map <S-J> b
+map <S-K> 5gj
+map <S-I> 5gk
 noremap h i
 
-" Page up and down with Shift+I and Shift+K
-nnoremap <S-I> <PageUp>
-nnoremap <S-K> <PageDown>
-nnoremap <C-I> <PageUp>
-nnoremap <C-K> <PageDown>
+" Page up and down with Ctrl+I and Ctrl+K
+"nnoremap <C-I> <PageUp>
+"nnoremap <C-K> <PageDown>
 
 " Pressing , or . will let you indent/unident selected lines
 vnoremap , <gv
@@ -128,16 +138,21 @@ let mapleader = ","
 
 " Let's you escape input mode with jj instead of Escape
 :imap jj <Esc>
+":imap <C-c> <Esc>
 
 " Leader n will toggle NERD tree
 " map <leader>n :NERDTreeToggle<CR>
-map <F2> :NERDTreeToggle<CR>
-
-map <S-H> :LustyJuggler<CR>
 
 " Sets CtrlP to ff
 map ff :CtrlP<CR>
 
+" Highlight as you type
+set incsearch
+" case insensitive
+set ignorecase
+" except for upper case
+set smartcase
+" Turn off highlighting
 nnoremap <F3> :noh<CR>
 
 " Sets CtrlP search to ancestor with .git or pwd or dir of current file
@@ -183,10 +198,10 @@ map <S-s><S-s> :split<CR>
 " Switch buffer with sd
 map sd ,be
 
-map <S-L> :call MoveRight()<CR>
-map <S-J> :call MoveLeft()<CR>
-map <S-I> :call MoveUp()<CR>
-map <S-K> :call MoveDown()<CR>
+map <C-L> :call MoveRight()<CR>
+map <C-J> :call MoveLeft()<CR>
+map <C-I> :call MoveUp()<CR>
+map <C-K> :call MoveDown()<CR>
 
 function! MoveRight()
   if len(tabpagebuflist()) > 1
