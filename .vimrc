@@ -96,8 +96,8 @@ syntax on
 set directory=$HOME/.vim/swapfiles
 
 set t_Co=256 " Allow 256 colors in terminal
-set gfn=Terminus\ 12
-" set gfn=Inconsolata\ 14
+"set gfn=Terminus\ 12
+set gfn=Inconsolata\ 14
 " set gfn=Monospace\ 12
 " colorscheme railscasts
 colorscheme tango2
