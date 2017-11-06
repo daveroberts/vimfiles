@@ -124,10 +124,11 @@ vmap <C-X> "+d
 noremap k gj
 noremap j h
 noremap i gk
-map <S-L> w
-map <S-J> b
-map <S-K> 5gj
-map <S-I> 5gk
+" Faster navigation
+" map <S-L> w
+" map <S-J> b
+" map <S-K> 5gj
+" map <S-I> 5gk
 noremap h i
 
 " Page up and down with Ctrl+I and Ctrl+K
@@ -208,10 +209,10 @@ map <S-s><S-s> :split<CR>
 " Switch buffer with sd
 map sd ,be
 
-map <C-L> :call MoveRight()<CR>
-map <C-J> :call MoveLeft()<CR>
-map <C-I> :call MoveUp()<CR>
-map <C-K> :call MoveDown()<CR>
+map <S-L> :call MoveRight()<CR>
+map <S-J> :call MoveLeft()<CR>
+map <S-I> :call MoveUp()<CR>
+map <S-K> :call MoveDown()<CR>
 
 function! MoveRight()
   if len(tabpagebuflist()) > 1
