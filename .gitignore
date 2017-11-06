@@ -1,5 +1,5 @@
 bundle/
 bundle/*
 .netrwhist
-swapfiles/
+swapfiles/*
 !swapfiles/.gitkeep
