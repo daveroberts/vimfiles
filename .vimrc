@@ -249,7 +249,7 @@ endfunction
 " Close buffer with Ctrl+Q
 " Or with qq
 "nnoremap <C-Q> :call CloseBuf()<C>
-nmap <C-W> :bd<CR>
+" nmap <C-W> :bd<CR>
 "map qq :call CloseBuf()<CR>
 "map qq :bd<CR>
 
